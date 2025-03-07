@@ -8,7 +8,7 @@
 
   let service = useMachine(datepicker.machine, {
     id,
-    selectionMode: 'multiple',
+    selectionMode: 'range',
     get value() {
       return value;
     },
