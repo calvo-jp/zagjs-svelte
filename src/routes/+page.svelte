@@ -6,16 +6,17 @@
 
   let value: datepicker.DateValue[] = $state([]);
 
-  let service = useMachine(datepicker.machine, {
-    id,
-    selectionMode: 'range',
-    get value() {
-      return value;
-    },
-    onValueChange(detail) {
-      value = detail.value;
-    },
-  });
+  let service = useMachine(
+    datepicker.machine,
+    (): datepicker.Props => ({
+      id,
+      selectionMode: 'range',
+      value,
+      onValueChange(detail) {
+        value = detail.value;
+      },
+    }),
+  );
 
   let api = $derived(datepicker.connect(service, normalizeProps));
 
