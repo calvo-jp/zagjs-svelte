@@ -6,17 +6,16 @@
 
   let value: datepicker.DateValue[] = $state([]);
 
-  let service = useMachine(
-    datepicker.machine,
-    (): datepicker.Props => ({
-      id,
-      selectionMode: 'range',
-      value,
-      onValueChange(detail) {
-        value = detail.value;
-      },
-    }),
-  );
+  let service = useMachine(datepicker.machine, {
+    id,
+    selectionMode: 'multiple',
+    get value() {
+      return value;
+    },
+    onValueChange(detail) {
+      value = detail.value;
+    },
+  });
 
   let api = $derived(datepicker.connect(service, normalizeProps));
 
@@ -24,16 +23,8 @@
 </script>
 
 <div {...api.getControlProps()} style="display:inline-block;">
-  <input
-    {...api.getInputProps({
-      index: 0,
-    })}
-  />
-  <input
-    {...api.getInputProps({
-      index: 1,
-    })}
-  />
+  <input {...api.getInputProps({index: 0})} />
+  <input {...api.getInputProps({index: 1})} />
   <button {...api.getTriggerProps()}>🗓</button>
 </div>
 
